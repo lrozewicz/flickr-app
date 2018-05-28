@@ -1,4 +1,17 @@
-<p>
-  author works!
-  {{ photoID }}
-</p>
+<mat-card>
+    <mat-card-title>{{title}} {{ photoID }}</mat-card-title>
+ 
+  <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="true" [scrollCallback]="scrollCallback">
+    <li *ngFor="let item of photos">
+      <div class="photo-frame"><img [src]="item.url_q" class="photo" /></div>
+      <div class="photo-desc">
+        <div><span>Tytuł:</span> {{item.title}}</div>
+        <div><span>Autor:</span> {{item.ownername}}</div>
+        <div><span>Data:</span> {{item.datetaken}}</div>
+        <div><a [routerLink]="['/author', '58493385@N02']">Zobacz inne zdjęcia tego autora</a> </div>
+      </div>
+      
+    </li>
+  </ul>
+</mat-card>
+

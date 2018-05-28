@@ -31,8 +31,6 @@ export class HomeComponent {
   private processData = (news) => {
     this.currentPage++;
     let data = JSON.parse(news._body);
-    console.log(data.photos.photo);
-    //this.news = this.news.concat(news.json());
     this.photos = this.photos.concat(data.photos.photo);
   }
 
