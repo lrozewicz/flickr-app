@@ -10,7 +10,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'author', component: AuthorComponent },
+  { path: 'author/:id', component: AuthorComponent },
   { path: 'map', component: MapComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' }
