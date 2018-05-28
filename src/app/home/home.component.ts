@@ -1,7 +1,7 @@
 import {Component, NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 import { HttpModule } from '@angular/http';
-import { HackerNewsService } from '../hackernews.service'
+import { HackerNewsService } from '../hackernews.service';
 import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 
 @Component({
@@ -32,6 +32,7 @@ export class HomeComponent {
     this.currentPage++;
     let data = JSON.parse(news._body);
     this.photos = this.photos.concat(data.photos.photo);
+    this.hackerNewsSerivce.updatePhotos(this.photos);
   }
 
 }

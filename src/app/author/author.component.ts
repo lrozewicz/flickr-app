@@ -43,6 +43,7 @@ export class AuthorComponent {
     this.currentPage++;
     let data = JSON.parse(news._body);
     this.photos = this.photos.concat(data.photos.photo);
+    this.hackerNewsSerivce.updatePhotos(this.photos);
     this.authorName = (data.photos.photo)[0].ownername;
   }
 
