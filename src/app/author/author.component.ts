@@ -9,7 +9,7 @@ import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
-  styleUrls: ['./author.component.css']
+  styleUrls: ['./author.component.scss']
 })
 export class AuthorComponent {
 
@@ -17,13 +17,14 @@ export class AuthorComponent {
 
   constructor(private activatedRoute: ActivatedRoute, private hackerNewsSerivce: HackerNewsService) { 
     this.title = 'Angular Infinite Scroller with RxJS';
-    this.scrollCallback = this.getStories.bind(this);
-    console.log(activatedRoute.snapshot.url[0].path);
-    console.log(activatedRoute.snapshot.params['id']);
-    this.photoID = activatedRoute.snapshot.params['id'];
+    this.userID = activatedRoute.snapshot.params['id'];
+    this._currentPage = activatedRoute.snapshot.url[0].path;
+    this.scrollCallback = this.getPhotos.bind(this); 
   }
 
-  photoID: string;
+  userID: string;
+  _currentPage: string;
+  authorName: string = '';
 
   title = '';
 
@@ -34,14 +35,15 @@ export class AuthorComponent {
   scrollCallback;
 
 
-  getStories() {
-    return this.hackerNewsSerivce.getLatestStories(this.currentPage).do(this.processData);
+  getPhotos() {
+    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData);
   }
 
   private processData = (news) => {
     this.currentPage++;
     let data = JSON.parse(news._body);
     this.photos = this.photos.concat(data.photos.photo);
+    this.authorName = (data.photos.photo)[0].ownername;
   }
 
 }

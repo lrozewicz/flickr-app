@@ -11,9 +11,9 @@ export class HackerNewsService {
 
   constructor(private http: Http) { }
 
-  getLatestStories(page: number = 1, currenPage = 'home', userId = 0) {
+  getLatestPhotos(page: number = 1, _currenPage = 'home', userId = '0') {
     //const currenPage: string = this.route.url.join('') === '' ? 'home' :  this.route.url.join('');
-    if(currenPage == 'author' && userId != 0) {
+    if(_currenPage == 'author' && userId != '0') {
       return this.http.get(`${BASE_URL_AUTHOR}${page}&user_id=${userId}`);
     } else {
       return this.http.get(`${BASE_URL}${page}`);

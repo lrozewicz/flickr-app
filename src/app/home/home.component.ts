@@ -21,11 +21,11 @@ export class HomeComponent {
 
   constructor(private hackerNewsSerivce: HackerNewsService) {
     this.title = 'Angular Infinite Scroller with RxJS';
-    this.scrollCallback = this.getStories.bind(this);
+    this.scrollCallback = this.getPhotos.bind(this);
    }
 
-  getStories() {
-    return this.hackerNewsSerivce.getLatestStories(this.currentPage).do(this.processData);
+   getPhotos() {
+    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage).do(this.processData);
   }
 
   private processData = (news) => {

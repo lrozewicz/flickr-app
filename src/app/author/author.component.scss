@@ -1,0 +1,36 @@
+#infinite-scroller {
+    height: 500px;
+    border: 1px solid #f5ad7c;
+    overflow: scroll;
+    padding: 0;
+    list-style: none;
+  
+    li {
+      padding : 10px 5px;
+      line-height: 1.5;
+      clear: both;
+  
+      &:nth-child(odd) {
+        background : #ffe8d8;
+      }
+  
+      &:nth-child(even) {
+        background : #f5ad7c;
+      }
+  
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+  
+    }
+  
+    .photo-frame {
+      float: left;
+    }
+    .photo-desc {
+      float: left;
+    }
+  }
+  
