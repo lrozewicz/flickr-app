@@ -10,28 +10,5 @@ import { InfiniteScrollerDirective } from './infinite-scroller.directive';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = '';
 
-  currentPage: number = 1;
-
-  news: Array<any> = [];
-
-  scrollCallback;
-
-  constructor(private hackerNewsSerivce: HackerNewsService) {
-    this.title = 'Angular Infinite Scroller with RxJS';
-    this.scrollCallback = this.getStories.bind(this);
-   }
-
-  getStories() {
-    return this.hackerNewsSerivce.getLatestStories(this.currentPage).do(this.processData);
-  }
-
-  private processData = (news) => {
-    this.currentPage++;
-    let data = JSON.parse(news._body);
-    console.log(data.photos.photo);
-    //this.news = this.news.concat(news.json());
-    this.news = this.news.concat(data.photos.photo);
-  }
 }

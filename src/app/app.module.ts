@@ -7,15 +7,28 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfiniteScrollerDirective } from './infinite-scroller.directive';
 
+import { MatCardModule } from '@angular/material';
+import { HomeComponent } from './home/home.component';
+import { AuthorComponent } from './author/author.component';
+import { MapComponent } from './map/map.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AppRoutingModule } from './app-routing/app-routing.module';
+
 @NgModule({
   declarations: [
     AppComponent,
-    InfiniteScrollerDirective
+    InfiniteScrollerDirective,
+    HomeComponent,
+    AuthorComponent,
+    MapComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MatCardModule,
+    AppRoutingModule
   ],
   providers: [HackerNewsService],
   bootstrap: [AppComponent]
