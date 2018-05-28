@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { environment  } from '../environments/environment';
 
-//const BASE_URL = 'https://node-hnapi.herokuapp.com';
-const BASE_URL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f1139d5c6793d0a4e46d8a84cb729107&text=dogs&format=json&nojsoncallback=1&extras=url_q,geo,owner_name,date_taken&has_geo=1&per_page=50&page=';
+const API_URL = environment.API_URL;
+const api_key = environment.api_key;
+const BASE_URL = API_URL + '&api_key='+api_key+'&text=dogs&format=json&nojsoncallback=1&extras=url_q,geo,owner_name,date_taken&has_geo=1&per_page=50&page=';
 
 @Injectable()
 export class HackerNewsService {
