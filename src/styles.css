@@ -5,3 +5,11 @@ html, body {
     height: 100%;
 }
 body { margin: 0; }
+
+.error {
+    color: red;
+}
+
+.hide {
+    display: none;
+}

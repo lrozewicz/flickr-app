@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { HackerNewsService } from '../hackernews.service'
 import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-author',
@@ -16,7 +19,6 @@ export class AuthorComponent {
   
 
   constructor(private activatedRoute: ActivatedRoute, private hackerNewsSerivce: HackerNewsService) { 
-    this.title = 'Angular Infinite Scroller with RxJS';
     this.userID = activatedRoute.snapshot.params['id'];
     this._currentPage = activatedRoute.snapshot.url[0].path;
     this.scrollCallback = this.getPhotos.bind(this); 
@@ -25,8 +27,9 @@ export class AuthorComponent {
   userID: string;
   _currentPage: string;
   authorName: string = '';
+  errorMessage: string = '';
+  error: number = 1;
 
-  title = '';
 
   currentPage: number = 1;
 
@@ -39,12 +42,21 @@ export class AuthorComponent {
     return this.hackerNewsSerivce.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData);
   }
 
-  private processData = (news) => {
+  private processData = (items) => {
     this.currentPage++;
-    let data = JSON.parse(news._body);
-    this.photos = this.photos.concat(data.photos.photo);
-    this.hackerNewsSerivce.updatePhotos(this.photos);
-    this.authorName = (data.photos.photo)[0].ownername;
+    let data = JSON.parse(items._body);
+
+    if(data.stat == 'ok') {
+      this.error = 0;
+      this.errorMessage = '';
+
+      this.photos = this.photos.concat(data.photos.photo);
+      this.hackerNewsSerivce.updatePhotos(this.photos);
+      this.authorName = (data.photos.photo)[0].ownername;
+    } else {    
+      this.error = 1; 
+      this.errorMessage = data.message;
+    }
   }
 
 }
