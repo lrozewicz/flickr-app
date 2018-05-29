@@ -5,9 +5,6 @@ import { HttpModule } from '@angular/http';
 import { HackerNewsService } from '../hackernews.service'
 import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-author',
@@ -39,7 +36,10 @@ export class AuthorComponent {
 
 
   getPhotos() {
-    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData);
+    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData, (error) => {
+      this.error = 1; 
+      this.errorMessage = "Nie można połączyć się z serwerem!";
+    });
   }
 
   private processData = (items) => {

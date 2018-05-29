@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfiniteScrollerDirective } from './infinite-scroller.directive';
 
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { AuthorComponent } from './author/author.component';
 import { MapComponent } from './map/map.component';
@@ -28,6 +28,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FormsModule,
     HttpModule,
     MatCardModule,
+    MatProgressBarModule,
     AppRoutingModule
   ],
   providers: [HackerNewsService],

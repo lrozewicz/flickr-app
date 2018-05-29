@@ -1,5 +1,5 @@
 <mat-card>
-
+  <div [ngClass]="{hide: error == 0 || errorMessage != ''}"><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
   <div *ngIf="errorMessage.length == 0; else errorBox">
   <mat-card-title>{{ authorName }} {{ photoID }}</mat-card-title>
  
