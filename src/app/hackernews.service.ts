@@ -12,6 +12,8 @@ export class HackerNewsService {
 
   constructor(private http: Http) { }
 
+  public filter = '';
+
   public allPhotos: any = [];
 
   getLatestPhotos(page: number = 1, _currenPage = 'home', userId = '0') {
@@ -35,5 +37,35 @@ export class HackerNewsService {
 
   getPhotos() {
     return this.allPhotos;
+  }
+
+  sortOn(key: string, photosArray: Array<any>) {
+    this.filter = key;
+    photosArray.sort(function(a, b){
+        if(a[key].toLowerCase() < b[key].toLowerCase()) {
+            return -1;
+        } else if(a[key].toLowerCase() > b[key].toLowerCase()){
+            return 1;
+        }
+        return 0;
+    });
+    return photosArray;
+  }
+
+  sortReverse(photosArray: Array<any>) {
+    return photosArray.reverse();  
+  }
+
+  sortDate(key: string, photosArray: Array<any>) {
+    this.filter = key;
+    photosArray.sort(function(a, b){
+        if(parseInt(a[key].replace(/\D/g,'')) < parseInt(b[key].replace(/\D/g,''))) {
+            return -1;
+        } else if(parseInt(a[key].replace(/\D/g,'')) > parseInt(b[key].replace(/\D/g,''))){
+            return 1;
+        }
+        return 0;
+    });
+    return photosArray;
   }
 }

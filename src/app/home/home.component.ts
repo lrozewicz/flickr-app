@@ -15,6 +15,8 @@ export class HomeComponent {
   errorMessage: string = '';
   error: number = 1;
 
+  clickedName = {};
+
   currentPage: number = 1;
 
   photos: Array<any> = [];
@@ -42,12 +44,45 @@ export class HomeComponent {
       this.errorMessage = '';
 
       this.photos = this.photos.concat(data.photos.photo);
+
+      if(this.hackerNewsSerivce.filter != '') {
+        this.sortTitle(this.hackerNewsSerivce.filter);  
+      }
+
       this.hackerNewsSerivce.updatePhotos(this.photos);
     } else {    
       this.error = 1; 
       this.errorMessage = data.message;
     }
 
+  }
+
+  sortTitle(name) {
+    this.clickedName[name] = (this.clickedName[name] == true || (this.clickedName[name] instanceof Boolean) == false) ? this.clickedName[name] = false : this.clickedName[name] = true;
+    
+    if(this.clickedName[name]) {
+      this.photos = this.hackerNewsSerivce.sortOn(name, this.photos);   
+    } else {
+      if(name == this.hackerNewsSerivce.filter) {
+        this.photos = this.hackerNewsSerivce.sortReverse(this.photos); 
+      } else {
+        this.photos = this.hackerNewsSerivce.sortOn(name, this.photos);
+      }       
+    }     
+  }
+
+  sortDate(name) {
+    this.clickedName[name] = (this.clickedName[name] == true || (this.clickedName[name] instanceof Boolean) == false) ? this.clickedName[name] = false : this.clickedName[name] = true;
+    
+    if(this.clickedName[name]) {
+      this.photos = this.hackerNewsSerivce.sortDate(name, this.photos);   
+    } else {
+      if(name == this.hackerNewsSerivce.filter) {
+        this.photos = this.hackerNewsSerivce.sortReverse(this.photos); 
+      } else {
+        this.photos = this.hackerNewsSerivce.sortDate(name, this.photos);
+      }       
+    } 
   }
 
 }

@@ -2,6 +2,10 @@
     <mat-card-title>{{title}}</mat-card-title>
     <div [ngClass]="{hide: error == 0 || errorMessage != ''}"><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
     <div *ngIf="errorMessage.length == 0; else errorBox">
+      <button mat-button (click)="sortTitle('title')">Sortuj po tytule</button> 
+      <button mat-button (click)="sortTitle('ownername')">Sortuj po autorze</button>
+      <button mat-button (click)="sortDate('datetaken')">Sortuj po dacie</button>
+      
       <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="true" [scrollCallback]="scrollCallback" [ngClass]="{hide: error == 1}">
         <li *ngFor="let item of photos">
           <div class="photo-frame"><img [src]="item.url_q" class="photo" /></div>
