@@ -1,7 +1,8 @@
 #infinite-scroller {
-    height: 500px;
-    border: 1px solid #f5ad7c;
-    overflow: scroll;
+    height: 700px;
+    border: 1px solid #7bbce5;
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding: 0;
     list-style: none;
   
@@ -11,11 +12,11 @@
       clear: both;
   
       &:nth-child(odd) {
-        background : #ffe8d8;
+        background : #c4e8ff;
       }
   
       &:nth-child(even) {
-        background : #f5ad7c;
+        background : #7bbce5;
       }
   
       &:after {
@@ -31,6 +32,15 @@
     }
     .photo-desc {
       float: left;
+      padding-left: 10px;
+
+      a {
+        color: #221eb5;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
   
