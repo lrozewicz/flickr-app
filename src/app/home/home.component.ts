@@ -12,6 +12,8 @@ import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 export class HomeComponent {
 
   title = '';
+  errorMessage: string = '';
+  error: number = 1;
 
   currentPage: number = 1;
 
@@ -25,14 +27,27 @@ export class HomeComponent {
    }
 
    getPhotos() {
-    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage).do(this.processData);
+    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage).do(this.processData, (error) => {
+      this.error = 1; 
+      this.errorMessage = "Nie można połączyć się z serwerem!";
+    });
   }
 
-  private processData = (news) => {
+  private processData = (items) => {
     this.currentPage++;
-    let data = JSON.parse(news._body);
-    this.photos = this.photos.concat(data.photos.photo);
-    this.hackerNewsSerivce.updatePhotos(this.photos);
+    let data = JSON.parse(items._body);
+
+    if(data.stat == 'ok') {
+      this.error = 0;
+      this.errorMessage = '';
+
+      this.photos = this.photos.concat(data.photos.photo);
+      this.hackerNewsSerivce.updatePhotos(this.photos);
+    } else {    
+      this.error = 1; 
+      this.errorMessage = data.message;
+    }
+
   }
 
 }

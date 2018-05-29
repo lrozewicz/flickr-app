@@ -1,7 +1,9 @@
 <mat-card>
+  
     <mat-card-title>{{title}}</mat-card-title>
- 
-  <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="true" [scrollCallback]="scrollCallback">
+    <div [ngClass]="{hide: error == 0 || errorMessage != ''}"><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
+<div *ngIf="errorMessage.length == 0; else errorBox">
+  <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="true" [scrollCallback]="scrollCallback" [ngClass]="{hide: error == 1}">
     <li *ngFor="let item of photos">
       <div class="photo-frame"><img [src]="item.url_q" class="photo" /></div>
       <div class="photo-desc">
@@ -13,4 +15,6 @@
       
     </li>
   </ul>
+</div>
+<ng-template #errorBox><div class="error"> {{ errorMessage }} </div></ng-template>
 </mat-card>
