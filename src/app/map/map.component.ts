@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
   map: google.maps.Map;
   marker = [];
   infowindow = [];
+  title = 'Mapa';
 
   constructor(private hackerNewsSerivce: HackerNewsService) {
     

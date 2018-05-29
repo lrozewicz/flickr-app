@@ -1,7 +1,7 @@
 <mat-card>
   <div [ngClass]="{hide: error == 0 || errorMessage != ''}"><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
   <div *ngIf="errorMessage.length == 0; else errorBox">
-  <mat-card-title>{{ authorName }}</mat-card-title>
+  <mat-card-title>Autor zdjęć: <b>{{ authorName }}</b></mat-card-title>
  
   <ul id="infinite-scroller" appInfiniteScroller scrollPerecnt="70" [immediateCallback]="true" [scrollCallback]="scrollCallback" [ngClass]="{hide: error == 1}">
     <li *ngFor="let item of photos">

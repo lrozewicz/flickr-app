@@ -1,0 +1,16 @@
+.main-navigation {   
+    font-size: 14px;
+
+    a {
+        color: blue;
+        text-decoration: none;
+
+        &.active {
+            text-decoration: underline;
+        }
+
+        &:hover {
+            color: brown;
+        }
+    }
+}
