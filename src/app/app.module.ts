@@ -7,12 +7,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfiniteScrollerDirective } from './infinite-scroller.directive';
 
-import { MatCardModule, MatProgressBarModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule, MatToolbarModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { AuthorComponent } from './author/author.component';
 import { MapComponent } from './map/map.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     HomeComponent,
     AuthorComponent,
     MapComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     HttpModule,
     MatCardModule,
     MatProgressBarModule,
+    MatToolbarModule,
     AppRoutingModule
   ],
   providers: [HackerNewsService],
