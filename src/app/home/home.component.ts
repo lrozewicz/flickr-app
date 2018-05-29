@@ -1,7 +1,7 @@
-import {Component, NgModule} from '@angular/core'
-import {BrowserModule} from '@angular/platform-browser'
+import { Component, NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 import { HttpModule } from '@angular/http';
-import { HackerNewsService } from '../hackernews.service';
+import { FlickrApiService } from '../flickr-api.service';
 import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 
 @Component({
@@ -23,13 +23,13 @@ export class HomeComponent {
 
   scrollCallback;
 
-  constructor(private hackerNewsSerivce: HackerNewsService) {
-    this.title = 'Angular Infinite Scroller with RxJS';
+  constructor(private flickrApiService: FlickrApiService) {
+    this.title = 'Flickr App - strona główna';
     this.scrollCallback = this.getPhotos.bind(this);
    }
 
    getPhotos() {
-    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage).do(this.processData, (error) => {
+    return this.flickrApiService.getLatestPhotos(this.currentPage).do(this.processData, (error) => {
       this.error = 1; 
       this.errorMessage = "Nie można połączyć się z serwerem!";
     });
@@ -45,11 +45,11 @@ export class HomeComponent {
 
       this.photos = this.photos.concat(data.photos.photo);
 
-      if(this.hackerNewsSerivce.filter != '') {
-        this.sortTitle(this.hackerNewsSerivce.filter);  
+      if(this.flickrApiService.filter != '') {
+        this.sortTitle(this.flickrApiService.filter);  
       }
 
-      this.hackerNewsSerivce.updatePhotos(this.photos);
+      this.flickrApiService.updatePhotos(this.photos);
     } else {    
       this.error = 1; 
       this.errorMessage = data.message;
@@ -61,12 +61,12 @@ export class HomeComponent {
     this.clickedName[name] = (this.clickedName[name] == true || (this.clickedName[name] instanceof Boolean) == false) ? this.clickedName[name] = false : this.clickedName[name] = true;
     
     if(this.clickedName[name]) {
-      this.photos = this.hackerNewsSerivce.sortOn(name, this.photos);   
+      this.photos = this.flickrApiService.sortOn(name, this.photos);   
     } else {
-      if(name == this.hackerNewsSerivce.filter) {
-        this.photos = this.hackerNewsSerivce.sortReverse(this.photos); 
+      if(name == this.flickrApiService.filter) {
+        this.photos = this.flickrApiService.sortReverse(this.photos); 
       } else {
-        this.photos = this.hackerNewsSerivce.sortOn(name, this.photos);
+        this.photos = this.flickrApiService.sortOn(name, this.photos);
       }       
     }     
   }
@@ -75,12 +75,12 @@ export class HomeComponent {
     this.clickedName[name] = (this.clickedName[name] == true || (this.clickedName[name] instanceof Boolean) == false) ? this.clickedName[name] = false : this.clickedName[name] = true;
     
     if(this.clickedName[name]) {
-      this.photos = this.hackerNewsSerivce.sortDate(name, this.photos);   
+      this.photos = this.flickrApiService.sortDate(name, this.photos);   
     } else {
-      if(name == this.hackerNewsSerivce.filter) {
-        this.photos = this.hackerNewsSerivce.sortReverse(this.photos); 
+      if(name == this.flickrApiService.filter) {
+        this.photos = this.flickrApiService.sortReverse(this.photos); 
       } else {
-        this.photos = this.hackerNewsSerivce.sortDate(name, this.photos);
+        this.photos = this.flickrApiService.sortDate(name, this.photos);
       }       
     } 
   }

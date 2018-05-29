@@ -1,4 +1,4 @@
-import { HackerNewsService } from './hackernews.service';
+import { FlickrApiService } from './flickr-api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { InfiniteScrollerDirective } from './infinite-scroller.directive';
 
-import { MatCardModule, MatProgressBarModule, MatToolbarModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule, MatToolbarModule, MatButtonModule } from '@angular/material';
 import { HomeComponent } from './home/home.component';
 import { AuthorComponent } from './author/author.component';
 import { MapComponent } from './map/map.component';
@@ -34,7 +34,7 @@ import { NavComponent } from './nav/nav.component';
     MatToolbarModule,
     AppRoutingModule
   ],
-  providers: [HackerNewsService],
+  providers: [FlickrApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

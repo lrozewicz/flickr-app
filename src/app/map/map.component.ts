@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { } from '@types/googlemaps';
 import { ArrayType } from '@angular/compiler/src/output/output_ast';
-import { HackerNewsService } from '../hackernews.service'
+import { FlickrApiService } from '../flickr-api.service'
 
 @Component({
   selector: 'app-map',
@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
   infowindow = [];
   title = 'Mapa';
 
-  constructor(private hackerNewsSerivce: HackerNewsService) {
+  constructor(private flickrApiService: FlickrApiService) {
     
   }
 
@@ -28,14 +28,14 @@ export class MapComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
 
-    if(this.hackerNewsSerivce.getPhotos().length == 0) {
-      return this.hackerNewsSerivce.getLatestPhotos(1, 'map').subscribe((getData: any) => {
+    if(this.flickrApiService.getPhotos().length == 0) {
+      return this.flickrApiService.getLatestPhotos(1, 'map').subscribe((getData: any) => {
       let data = JSON.parse(getData._body).photos.photo;
-      this.hackerNewsSerivce.updatePhotos(data);
+      this.flickrApiService.updatePhotos(data);
       this.addMarkers(data);
       });
     } else {
-      this.addMarkers(this.hackerNewsSerivce.getPhotos());
+      this.addMarkers(this.flickrApiService.getPhotos());
     }
 
   }
@@ -44,7 +44,6 @@ export class MapComponent implements OnInit {
 
     photos.forEach((element, index) => {
       let position = { lat: parseInt(element.latitude), lng: parseInt(element.longitude) };
-      console.log(index);
       this.marker[index] = new google.maps.Marker({
           position: position,
           map: this.map,

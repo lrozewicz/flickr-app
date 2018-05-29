@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { HttpModule } from '@angular/http';
-import { HackerNewsService } from '../hackernews.service'
+import { FlickrApiService } from '../flickr-api.service'
 import { InfiniteScrollerDirective } from '../infinite-scroller.directive';
 
 
@@ -15,7 +15,7 @@ export class AuthorComponent {
 
   
 
-  constructor(private activatedRoute: ActivatedRoute, private hackerNewsSerivce: HackerNewsService) { 
+  constructor(private activatedRoute: ActivatedRoute, private flickrApiService: FlickrApiService) { 
     this.userID = activatedRoute.snapshot.params['id'];
     this._currentPage = activatedRoute.snapshot.url[0].path;
     this.scrollCallback = this.getPhotos.bind(this); 
@@ -36,7 +36,7 @@ export class AuthorComponent {
 
 
   getPhotos() {
-    return this.hackerNewsSerivce.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData, (error) => {
+    return this.flickrApiService.getLatestPhotos(this.currentPage, this._currentPage, this.userID).do(this.processData, (error) => {
       this.error = 1; 
       this.errorMessage = "Nie można połączyć się z serwerem!";
     });
@@ -51,7 +51,7 @@ export class AuthorComponent {
       this.errorMessage = '';
 
       this.photos = this.photos.concat(data.photos.photo);
-      this.hackerNewsSerivce.updatePhotos(this.photos);
+      this.flickrApiService.updatePhotos(this.photos);
       this.authorName = (data.photos.photo)[0].ownername;
     } else {    
       this.error = 1; 
